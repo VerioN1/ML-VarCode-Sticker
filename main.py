@@ -19,8 +19,12 @@ def read_root():
 
 @app.post("/image")
 def read_item(base64img: Image):
-    prediction = classify_image(base64img.image)
-    return prediction
+    try:
+        prediction = classify_image(base64img.image)
+        return prediction
+    except Exception as e:
+        return {"result": "error ocured ", "error": e}
+
 
 
 if __name__ == "__main__":
