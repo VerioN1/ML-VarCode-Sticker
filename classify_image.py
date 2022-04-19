@@ -37,6 +37,6 @@ def classify_image(im_b64):
         for predict in prediction[0]:
             print(predict)
         label1, label2 = get_labels()
-        return {[label1]: prediction[0].tolist()[0], [label2]: prediction[0].tolist()[1]}
+        return {label1: prediction[0].tolist()[0], label2: prediction[0].tolist()[1]}
     else:
         return {"result": "image has no 30 contours!"}

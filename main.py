@@ -1,4 +1,4 @@
-from typing import Optional
+
 
 import uvicorn
 from pydantic import BaseModel
@@ -23,9 +23,8 @@ def read_item(base64img: Image):
         prediction = classify_image(base64img.image)
         return prediction
     except Exception as e:
-        return {"result": "error ocured ", "error": e}
-
+        return {"result": "error occurred ", "error": e}
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="localhost", port=8000)

@@ -7,7 +7,6 @@ def get_labels():
             new_line = new_line.replace("1 ", "")
             new_line = new_line.replace("\n", "")
             arr.append(new_line)
-        print(arr)
         return arr
 
 
