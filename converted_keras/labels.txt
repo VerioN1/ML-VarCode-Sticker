@@ -1,2 +1,2 @@
-0 Above 0
-1 Below 0
+0 Product was not frozen
+1 Product was frozen

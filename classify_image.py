@@ -6,6 +6,7 @@ from PIL import Image, ImageOps
 import numpy as np
 
 from check_contour import is_image_contoured
+from read_file import get_labels
 
 print(cv2.__version__)
 
@@ -35,6 +36,7 @@ def classify_image(im_b64):
         prediction = model.predict(data)
         for predict in prediction[0]:
             print(predict)
-        return {"white": prediction[0].tolist()[0], "green": prediction[0].tolist()[1]}
+        label1, label2 = get_labels()
+        return {[label1]: prediction[0].tolist()[0], [label2]: prediction[0].tolist()[1]}
     else:
-        return {"result": "image has no 30 cuntours!"}
+        return {"result": "image has no 30 contours!"}
