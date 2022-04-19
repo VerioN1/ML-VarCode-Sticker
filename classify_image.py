@@ -2,7 +2,6 @@ import base64
 
 import cv2  # OpenCV Library
 from keras.models import load_model
-from PIL import Image, ImageOps
 import numpy as np
 
 from check_contour import is_image_contoured

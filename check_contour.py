@@ -45,6 +45,7 @@ def is_image_contoured(im_b64):
     max_counter_len.sort()
     print(max_counter_len)
     if crop_img is not None:
+        cv2.imwrite('testIMG.jpg', crop_img)
         return crop_img
     else:
         return False
