@@ -1,0 +1,2 @@
+0 ProductWasFrozen
+1 ProductWasNotFrozen
