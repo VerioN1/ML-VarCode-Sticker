@@ -3,7 +3,7 @@
 import uvicorn
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from classify_image import *
 
 app = FastAPI()
@@ -35,8 +35,8 @@ def read_item(base64img: Image):
         prediction = classify_image(base64img.image)
         return prediction
     except Exception as e:
-        return {"result": "error occurred ", "error": e}
-
+        print(e)
+        raise HTTPException(status_code=404, detail="coudln't parse image")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
