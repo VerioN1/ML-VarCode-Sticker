@@ -1,7 +1,7 @@
 import base64
 
 import cv2  # OpenCV Library
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 import numpy as np
 
 from check_contour import is_image_contoured
@@ -14,7 +14,7 @@ def classify_image(im_b64):
     countered_image = is_image_contoured(im_b64)
     size = (224, 224)
     if countered_image is not False:
-        model = tf.models.load_model(f'./converted_keras/keras_model.h5', compile=False)
+        model = tf.keras.models.load_model(f'./converted_keras/keras_model.h5', compile=False)
         data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
         # Replace this with the path to your image
         image = countered_image
