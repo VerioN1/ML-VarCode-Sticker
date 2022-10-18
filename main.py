@@ -26,11 +26,11 @@ class Image(BaseModel):
     image: str
 
 
-model = tf.keras.models.load_model(f'./converted_keras/keras_model.h5')
-optimizer = tf.keras.optimizers.Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-model.compile(optimizer=optimizer,
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+model = tf.keras.models.load_model("my_model")
+# optimizer = tf.keras.optimizers.Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+# model.compile(optimizer=optimizer,
+#               loss='sparse_categorical_crossentropy',
+#               metrics=['accuracy'])
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -51,7 +51,8 @@ def train_model(base64img: Image, isFrozen: str = Query(None, description="Yes o
     try:
         is_frozen = 0 if isFrozen.lower() == "yes" else 1
         train_model_status = train_model_func(model, base64img.image, is_frozen)
-        return train_model_status
+        model.save('my_model')
+        return "model is trained" if train_model_status else "model rejected this photo"
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail=str(e))
