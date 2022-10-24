@@ -46,10 +46,10 @@ def read_item(base64img: Image):
         raise HTTPException(status_code=404, detail="coudln't parse image")
 
 
-@app.post("/train-model")
-def train_model(base64img: Image, isFrozen: str = Query(None, description="Yes or No are the only valid inputs to isFrozen")):
+@app.post("/train-model/frozen")
+def train_model(base64img: Image):
     try:
-        is_frozen = 0 if isFrozen.lower() == "yes" else 1
+        is_frozen = 0
         train_model_status = train_model_func(model, base64img.image, is_frozen)
         model.save('my_model')
         return "model is trained" if train_model_status else "model rejected this photo"
@@ -57,6 +57,16 @@ def train_model(base64img: Image, isFrozen: str = Query(None, description="Yes o
         print(e)
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/train-model/not-frozen")
+def train_model(base64img: Image):
+    try:
+        is_frozen = 1
+        train_model_status = train_model_func(model, base64img.image, is_frozen)
+        model.save('my_model')
+        return "model is trained" if train_model_status else "model rejected this photo"
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
